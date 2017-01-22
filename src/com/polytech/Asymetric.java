@@ -22,12 +22,13 @@ import java.io.*;
 
 public class Asymetric{
 
+	//If we give some arguments, a sequence of encryption and decryption with signature check will be done to test our implementation of RSA signature and RSA Ciphering.
 	/*The first argument must be the path of the clearText ie res/clearText.txt for this project.
-	 *The second argument must be the path of the file which will contain the signature done by sign and MySign
-	 *The third argument must be the path of the file which will contain the encrypt message
-	 *The fourth argument must be the path of the file which will contain the decrypt message*/
+	 *The second argument must be the path of the file which will contain the signature done by sign and MySign (ie signature/signature.txt)
+	 *The third argument must be the path of the file which will contain the encrypt message (ie myEncryptedMessages/encrypted_messages.txt)
+	 *The fourth argument must be the path of the file which will contain the decrypt message (ie myDecryptedMessages/decrypted_messages.txt)*/
+	//Whether or not we give some arguments, the Secure session key exchange will be done (RSA Signature Implementation => 3. Secure session key exchange) 
 	static public void main(String argv[]){
-
 
 		// INITIALIZATION
 
@@ -38,82 +39,104 @@ public class Asymetric{
 		// create two new entity
 		Entity Alice = new Entity();
 		Entity Bob = new Entity();
+		
+		/******TEST OF OUR IMPLEMENTATION OF RSA SIGNATURE AND RSA CIPHERING******/
 
-//		try{
-//
-//			// GET THE CLEAR TEXT
-//			File aFile = new File(argv[0]);//create an object file with the file present in the path location (here the location of the clear file).
-//			FileInputStream in = new FileInputStream(aFile);//opening a connection to the clear file
-//			byte[] aMessage = new byte[(int)aFile.length()];
-//			in.read(aMessage);
-//			in.close();
-//
-//			// RSA SIGNATURE
-//			System.out.println("\nRSA SIGNATURE\n");
-//			// MAKE ALICE SIGN IT
-//			// display the clear text
-//			System.out.println("Message == \n"+new String(aMessage));
-//			// sign it
-//			byte[] aSignature = Alice.sign(aMessage);
-//			// display and store the signature
-//			System.out.println("Alice Signature == \n"+new String(aSignature));
-//			FileOutputStream out = new FileOutputStream(new File(argv[1]));
-//			out.write(aSignature);
-//			out.close();
-//
-//			// BOB CHECKS THE ALICE SIGNATURE
-//			System.out.println("Bob signature verification == \n"+Bob.checkSignature(aMessage, aSignature, Alice.thePublicKey));
-//
-//			// MY RSA SIGNATURE
-//			System.out.println("\nMY RSA SIGNATURE\n");
-//			// MAKE ALICE SIGN IT
-//			// display the clear text
-//			System.out.println("Message == \n"+new String(aMessage));
-//			// sign it
-//			aSignature = Alice.mySign(aMessage);
-//			// display and store the signature
-//			System.out.println("Alice Signature == \n"+new String(aSignature));
-//			out = new FileOutputStream(new File(argv[1]));
-//			out.write(aSignature);
-//			out.close();
-//
-//			// BOB CHECKS THE ALICE SIGNATURE
-//			System.out.println("Bob signature verification == "+Bob.myCheckSignature(aMessage, aSignature, Alice.thePublicKey));
-//
-//			// RSA ENCRYPTION/DECRYPTION
-//			System.out.println("\nRSA ENCRYPTION\n");
-//			// bob encrypt a message with the alice public key
-//			System.out.println("Clear Text == \n"+new String(aMessage));
-//			byte[] aCiphered = Bob.encrypt(aMessage, Alice.thePublicKey);
-//			System.out.println("Ciphered Text== \n"+new String(aCiphered)+"\n");
-//			out = new FileOutputStream(new File(argv[2]));
-//			out.write(aCiphered);
-//			out.close();
-//
-//			// alice decrypt the message
-//			byte[] aDeciphered = Alice.decrypt(aCiphered);
-//			System.out.println("Deciphered Text== \n"+new String(aDeciphered));
-//			out = new FileOutputStream(new File(argv[3]));
-//			out.write(aDeciphered);
-//			out.close();
-//		}catch(Exception e){
-//			e.printStackTrace();
-//			System.out.println("java Asymetric clearTextFile SignatureFile CipheredFile DecipheredFile");
-//		}
+		if(argv.length>0){ //if there is some arguments, we test our implementation of RSA signature and RSA Ciphering.
+			System.out.println("TEST OF OUR IMPLEMENTATION OF RSA SIGNATURE AND RSA CIPHERING: ");
+			try{
 
+				// GET THE CLEAR TEXT
+				File aFile = new File(argv[0]);//create an object file with the file present in the path location (here the location of the clear file).
+				FileInputStream in = new FileInputStream(aFile);//opening a connection to the clear file
+				byte[] aMessage = new byte[(int)aFile.length()];
+				in.read(aMessage);
+				in.close();
+
+				// RSA SIGNATURE
+				System.out.println("\nRSA SIGNATURE\n");
+				// MAKE ALICE SIGN IT
+				// display the clear text
+				System.out.println("Message == \n"+new String(aMessage));
+				// sign it
+				byte[] aSignature = Alice.sign(aMessage);
+				// display and store the signature
+				System.out.println("");
+				System.out.println("Alice Signature == \n"+new String(aSignature));
+				System.out.println("");
+				FileOutputStream out = new FileOutputStream(new File(argv[1]));
+				out.write(aSignature);
+				out.close();
+
+				// BOB CHECKS THE ALICE SIGNATURE
+				System.out.println("Bob signature verification == \n"+Bob.checkSignature(aMessage, aSignature, Alice.thePublicKey));
+
+				// MY RSA SIGNATURE
+				System.out.println("\nMY RSA SIGNATURE\n");
+				// MAKE ALICE SIGN IT
+				// display the clear text
+				System.out.println("Message == \n"+new String(aMessage));
+				// sign it
+				aSignature = Alice.mySign(aMessage);
+				// display and store the signature
+				System.out.println("");
+				System.out.println("Alice Signature == \n"+new String(aSignature));
+				System.out.println("");
+				out = new FileOutputStream(new File(argv[1]));
+				out.write(aSignature);
+				out.close();
+
+				// BOB CHECKS THE ALICE SIGNATURE
+				System.out.println("Bob signature verification == \n"+Bob.myCheckSignature(aMessage, aSignature, Alice.thePublicKey));
+
+				// RSA ENCRYPTION/DECRYPTION
+				System.out.println("\nRSA ENCRYPTION\n");
+				// bob encrypt a message with the alice public key
+				System.out.println("Clear Text == \n"+new String(aMessage));
+				byte[] aCiphered = Bob.encrypt(aMessage, Alice.thePublicKey);
+				System.out.println("");
+				System.out.println("Ciphered Text== \n"+new String(aCiphered)+"\n");
+				out = new FileOutputStream(new File(argv[2]));
+				out.write(aCiphered);
+				out.close();
+
+				// alice decrypt the message
+				byte[] aDeciphered = Alice.decrypt(aCiphered);
+				System.out.println("");
+				System.out.println("Deciphered Text== \n"+new String(aDeciphered));
+				System.out.println("");
+				out = new FileOutputStream(new File(argv[3]));
+				out.write(aDeciphered);
+				out.close();
+			}catch(Exception e){
+				e.printStackTrace();
+				System.out.println("java Asymetric clearTextFile SignatureFile CipheredFile DecipheredFile");
+			}
+
+		}
+		
+		System.out.println("");
+		System.out.println("**************************************************************");
+		System.out.println("");
+
+		//Whether or not we have given some arguments, we test our protocol between Alice and Bob for a secure session key exchange
+		
 		/******BEGIN OF THE PROTOCOL BETWEEN ALICE AND BOB FOR A SECURE SESSION KEY EXCHANGE******/
+		
+		System.out.println("TEST OF THE PROTOCOL BETWEEN ALICE AND BOB FOR A SECURE SESSION KEY EXCHANGE: ");
+		System.out.println("");
 		final String PUBLIC_KEY_DIRECTORY = "Public_key/";
 		final String SESSION_KEY_DIRECTORY = "Session_key/";
 		final String ENCRYPTED_MESSAGES_DIRECTORY = "encrypted_messages/";
 		final String DECRYPTED_MESSAGES_DIRECTORY = "decrypted_messages/";
-		
+
 		//Clear all the directories
 		deleteDirectory(PUBLIC_KEY_DIRECTORY); //delete all the files present in the Public_key directory
 		deleteDirectory(SESSION_KEY_DIRECTORY); //delete all the files present in the Session_key directory
 		deleteDirectory(ENCRYPTED_MESSAGES_DIRECTORY); //delete all the files present in the encrypted_messages directory
 		deleteDirectory(DECRYPTED_MESSAGES_DIRECTORY); //delete all the files present in the decrypted_messages directory
-		
-		
+
+
 		final String PUBLIC_KEY_FILE_PATH = "Public_key/publicKey.txt";//define the path where the public key will be store and exchange.
 
 		PublicKey AlicePublicKey = Alice.thePublicKey ; //get the public key of Alice
@@ -162,7 +185,9 @@ public class Asymetric{
 		} catch (IOException e) {
 			System.out.println("Cause: "+e.getCause()+" Mesage: "+e.getMessage());
 			e.printStackTrace();
-		}     	
+		}     
+		
+		System.out.println("1. Alice sends her public key to Bob: Succes");
 
 		/***2. Bob generate a DES session key.***/
 
@@ -176,6 +201,8 @@ public class Asymetric{
 			System.out.println("Cause: "+e1.getCause()+" Mesage: "+e1.getMessage());
 			e1.printStackTrace();
 		}
+		
+		System.out.println("2. Bob generate a DES session key: Succes");
 
 		/***3. Bob encrypts it with Alice’s public key.***/
 
@@ -211,6 +238,8 @@ public class Asymetric{
 			System.out.println("Cause: "+e2.getCause()+" Mesage: "+e2.getMessage());
 			System.out.println("Error sending session key to Alice");
 		}
+		
+		System.out.println("3. Bob encrypts it with Alice’s public key: Succes");
 
 		/***4. Alice decrypts the DES key with her private key.***/
 
@@ -266,6 +295,8 @@ public class Asymetric{
 		} catch (ClassNotFoundException ioe) {
 			System.out.println("Error: cannot typecast to byte array");
 		}
+		
+		System.out.println("4. Alice decrypts the DES key with her private key: Succes");
 
 		/***5. Alice sends a message to Bob with her session key***/
 
@@ -320,11 +351,13 @@ public class Asymetric{
 			}
 
 			fromFile.close();  // close input file stream
-			System.out.println("All messages are sent to Bob");
+			//System.out.println("All messages are sent to Bob");
 
 		} catch (FileNotFoundException fnfe) {
 			System.out.println("Error: " + ENCRYPTED_MESSAGES_FILE_PATH + compteur + SUFFIX + " doesn't exist");
 		} 
+		
+		System.out.println("5. Alice sends a message to Bob with her session key: Succes");
 
 		/***6. Bob decrypts the message with the session key.***/
 
@@ -391,6 +424,11 @@ public class Asymetric{
 
 		}
 
+		System.out.println("6. Bob decrypts the message with the session key: Succes");
+		System.out.println("");
+		System.out.println("The secure session key exchange has been completed successfully !");
+		System.out.println("");
+		System.out.println("You can see the encrypted messages in the directory: encrypted_messages and the decrypted messages in the directory: decrypted_messages");
 
 	}
 
@@ -422,23 +460,23 @@ public class Asymetric{
 			//exception handling left as an exercise for the reader
 		}
 	}  
-	
+
 	//Delete all the files within a specified directory
 	static void deleteDirectory( String emplacement )
 	{
-	  File path = new File( emplacement );
-	  if( path.exists() )
-	  {
-	    File[] files = path.listFiles();
-	    for( int i = 0 ; i < files.length ; i++ )
-	    {
-	      if( files[ i ].isDirectory() )
-	      {
-	        deleteDirectory( path+"\\"+files[ i ] );
-	      }
-	      files[ i ].delete();
-	    }
-	  }
+		File path = new File( emplacement );
+		if( path.exists() )
+		{
+			File[] files = path.listFiles();
+			for( int i = 0 ; i < files.length ; i++ )
+			{
+				if( files[ i ].isDirectory() )
+				{
+					deleteDirectory( path+"\\"+files[ i ] );
+				}
+				files[ i ].delete();
+			}
+		}
 	}
 
 }
