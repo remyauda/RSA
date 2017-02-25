@@ -372,7 +372,7 @@ public class Asymetric{
 		}//nbEncryptFiles is the number of files in the directory encrypted_messages
 
 		ObjectInputStream iis_encryptedMessage;
-		SealedObject encryptedMessage;
+		SealedObject encryptedMessage; //use a sealed object
 
 		clearFile(DECRYPTED_MESSAGES_FILE_PATH); //clear the DECRYPTED_MESSAGES_FILE_PATH before write in it.
 		for(int i = 1; i <= nbEncryptFiles; i++){
