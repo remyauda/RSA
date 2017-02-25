@@ -420,7 +420,7 @@ public class Asymetric{
 				e.printStackTrace();
 			} 
 
-			writeAndAppendFile(DECRYPTED_MESSAGES_FILE_PATH, plainText);
+			writeAndAppendFile(DECRYPTED_MESSAGES_FILE_PATH, plainText); //write in the file
 
 		}
 
