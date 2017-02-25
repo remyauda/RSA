@@ -11,7 +11,7 @@ public class Entity{
 	public KeyPairGenerator keygenerator;
 	private KeyPair keypair;
 	
-	//keypair
+	//keypair public/private
 	public PublicKey thePublicKey;
 	private PrivateKey thePrivateKey;
 		

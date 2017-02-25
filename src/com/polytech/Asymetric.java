@@ -195,7 +195,7 @@ public class Asymetric{
 		KeyGenerator keygen = null;
 		SecretKey sessionKey = null;
 		try {
-			keygen = KeyGenerator.getInstance("DES"); //Initialize the generator to DES
+			keygen = KeyGenerator.getInstance("DES"); //Initialize the generator to DES (better to use AES)
 			sessionKey = keygen.generateKey(); //Generate the DES session key
 		} catch (NoSuchAlgorithmException e1) {
 			System.out.println("Cause: "+e1.getCause()+" Mesage: "+e1.getMessage());
