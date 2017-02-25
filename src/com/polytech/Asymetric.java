@@ -470,9 +470,10 @@ public class Asymetric{
 			File[] files = path.listFiles(); //get the list of the files
 			for( int i = 0 ; i < files.length ; i++ )
 			{
-				if( files[ i ].isDirectory() )
+				//if it is a directory, we delete it
+				if( files[ i ].isDirectory() ) 
 				{
-					deleteDirectory( path+"\\"+files[ i ] );
+					deleteDirectory( path+"\\"+files[ i ] ); 
 				}
 				files[ i ].delete();
 			}
