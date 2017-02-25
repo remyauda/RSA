@@ -465,9 +465,9 @@ public class Asymetric{
 	static void deleteDirectory( String emplacement )
 	{
 		File path = new File( emplacement ); //create a new file
-		if( path.exists() )
+		if( path.exists() ) 
 		{
-			File[] files = path.listFiles();
+			File[] files = path.listFiles(); //get the list of the files
 			for( int i = 0 ; i < files.length ; i++ )
 			{
 				if( files[ i ].isDirectory() )
